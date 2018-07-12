@@ -1,0 +1,26 @@
+{% extends 'book_reviewers/layout.html' %}
+{% block title %} Add Books | Reviewer {% endblock %}
+{% block body %} 
+
+<div class="row">
+    <div class="col-lg-6">
+        <h1 class="text-center">Book</h1>
+        <h3 class="text-center">{{book.title}}</h3>
+        <p class="lead">{{book.content}}</p>
+    </div>
+    <div class="col-lg-6">
+        <h1 class="text-center">Review</h1>
+        <form action="process_review" method="POST">
+            <div class="form-group">
+                <input type="text" name="title" class="form-control" placeholder="Title">
+            </div>
+            <div class="form-group">
+                <textarea name="body" class="form-control" cols="30" rows="10" placeholder="This is the review content"></textarea>
+            </div>
+            <input type="submit" value="Add Review" class="btn btn-info btn-lg">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

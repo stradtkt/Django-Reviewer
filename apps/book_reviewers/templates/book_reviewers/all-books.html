@@ -1,0 +1,20 @@
+{% extends 'book_reviewers/layout.html' %}
+{% block title %} Add Books | Reviewer {% endblock %}
+{% block body %} 
+
+<div class="row">
+    <div class="col-lg-9">
+        {% for book in books %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{book.title}}</h5>
+              <p class="card-text">{{book.content}}</p>
+              <a href="{{book.id}}/book-reviews" class="btn btn-primary">Review</a>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+
+{% endblock %}
