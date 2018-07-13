@@ -13,6 +13,8 @@ def index(request):
     return render(request, 'book_reviewers/index.html')
 
 def all_books(request):
+    if request.session.get('id') == None:
+        return redirect('/')
     context = {
         "books": Book.objects.all(),
         "user": User.objects.get(id=request.session['id'])
@@ -55,20 +57,20 @@ def register(request):
         request.session['id'] = user.id
         return redirect('/')
 
+def logout(request):
+    request.session.clear()
+    return redirect('/')
 
 def process_book(request):
-    title = request.POST['title']
-    content = request.POST['content']
-    valid = True
-    if title == "":
-        print("The title cannot be empty")
-        valid = False
-    if content == "":
-        print("The content cannot be empty")
-        valid = False
-    if valid: 
-        book = Book.objects.create(title=title, content=content)
+    errors = Book.objects.validate_book(request.POST)
+    if len(errors):
+        for tag, error in errors.iteritems():
+            messages.error(request, error, extra_tags=tag)
+        return redirect('/')
     else:
+        title = request.POST['title']
+        content = request.POST['content']
+        Book.objects.create(title=title, content=content)
         return redirect('add-book')
 
 def book_review(request, id):
@@ -81,8 +83,14 @@ def book_review(request, id):
 
 
 def process_review(request):
-    title = request.POST['title']
-    body = request.POST['body']
-    review = Review.objects.create(title=title, body=body)
-    return redirect('/')
+    errors = Review.objects.validate_review(request.POST)
+    if len(errors):
+        for tag, error in errors.iteritems():
+            messages.error(request, error, extra_tags=tag)
+        return redirect('/')
+    else:
+        title = request.POST['title']
+        body = request.POST['body']
+        Review.objects.create(title=title, body=body)
+        return redirect('/')
     
