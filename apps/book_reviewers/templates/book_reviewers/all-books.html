@@ -9,8 +9,8 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-9">
         {% for book in books %}
+    <div class="col-lg-3">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">{{book.title}}</h5>
@@ -18,9 +18,11 @@
               <a href="{{book.id}}/book-reviews" class="btn btn-primary">Review</a>
             </div>
           </div>
-        {% endfor %}
     </div>
-    <div class="col-lg-3"></div>
+    {% endfor %}
+    <div class="col-lg-3">
+        <a href="add-book" class="btn btn-danger">+ Add Book</a>
+    </div>
 </div>
 
 {% endblock %}

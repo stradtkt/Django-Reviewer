@@ -66,23 +66,22 @@ def process_book(request):
     if len(errors):
         for tag, error in errors.iteritems():
             messages.error(request, error, extra_tags=tag)
-        return redirect('/')
+        return redirect('/add-book')
     else:
         title = request.POST['title']
         content = request.POST['content']
         Book.objects.create(title=title, content=content)
-        return redirect('add-book')
+        return redirect('/all-books')
 
 def book_review(request, id):
-    context = {
-        "book": Book.objects.get(id=id),
-        "reviews": Reviews.objects.get(id=id)
-    }
+    book = Book.objects.get(id=id)
+    review = Review.objects.filter(book=book).order_by("-created_at")
+    context = {"book": book, "reviews": review}
     return render(request, 'book_reviewers/review.html', context)
 
 
 
-def process_review(request):
+def process_review(request, id):
     errors = Review.objects.validate_review(request.POST)
     if len(errors):
         for tag, error in errors.iteritems():
@@ -91,6 +90,13 @@ def process_review(request):
     else:
         title = request.POST['title']
         body = request.POST['body']
-        Review.objects.create(title=title, body=body)
+        user = User.objects.get(id=request.session['id'])
+        book = Book.objects.get(id=id)
+        Review.objects.create(title=title, body=body, user=user, book=book)
         return redirect('/')
-    
+
+def delete_review(request, book_id, review_id):
+    review = Review.objects.get(id=review_id)
+    review.delete()
+    messages.success(request, "Deleted Review")
+    return redirect('/{}/book-reviews'.format(book_id))

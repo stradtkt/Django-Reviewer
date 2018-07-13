@@ -39,10 +39,12 @@ class User(models.Model):
 
 class BookManager(models.Manager):
     def validate_book(self, postData):
+        errors = {}
         if len(postData['title']) < 2:
             errors['title'] = "The title needs to be two or more characters long"
         if len(postData['content']) < 10:
             errors['content'] = "The content for the book needs to be at least 10 characters long"
+        return errors
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
@@ -53,15 +55,18 @@ class Book(models.Model):
 
 class ReviewManager(models.Manager):
     def validate_review(self, postData):
+        errors = {}
         if len(postData['title']) < 2:
             errors['title'] = "Title needs to be at least 2 characters"
         if len(postData['body']) < 10:
             errors['body'] = "The body for the review needs to be at least 10 characters long"
-            
+        return errors
 
 class Review(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField(max_length=1000)
     user = models.ForeignKey(User)
     book = models.ForeignKey(Book)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     objects = ReviewManager()
