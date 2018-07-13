@@ -17,6 +17,22 @@ def all_books(request):
 def add_book(request):
     return render(request, 'book_reviewers/add-book.html')
 
+def login(request):
+    email = request.POST['email']
+    password = request.POST['password']
+    user = User.objects.filter(email=email)
+    if len(user) > 0:
+        is_pass = bcrypt.checkpw(password.encode(), user[0].password.encode())
+        if is_pass:
+            request.session['id'] = user[0].id
+            return redirect('all-books')
+        else:
+            messages.error(request, "Incorrect email and/or password")
+            return redirect('/')
+    else:
+        messages.error(request, "User does not exist")
+    return redirect('/')
+
 def process_book(request):
     title = request.POST['title']
     content = request.POST['content']
@@ -34,12 +50,16 @@ def process_book(request):
 
 def book_review(request, id):
     context = {
-        "book": Book.objects.get(id=id)
+        "book": Book.objects.get(id=id),
+        "reviews": Reviews.objects.get(id=id)
     }
     return render(request, 'book_reviewers/review.html', context)
+
+
 
 def process_review(request):
     title = request.POST['title']
     body = request.POST['body']
     review = Review.objects.create(title=title, body=body)
+    return redirect('/')
     

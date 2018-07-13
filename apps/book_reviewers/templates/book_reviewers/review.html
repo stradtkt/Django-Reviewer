@@ -7,6 +7,15 @@
         <h1 class="text-center">Book</h1>
         <h3 class="text-center">{{book.title}}</h3>
         <p class="lead">{{book.content}}</p>
+        <hr>
+        <br>
+        <h1 class="text-center">Book Reviews</h1>
+        {% if reviews %}
+            {% for review in reviews %}
+                <h3 class="text-center">{{review.title}}</h3>
+                <p class="lead text-center">{{review.body}}</p>
+            {% endfor %}
+        {% endif %}
     </div>
     <div class="col-lg-6">
         <h1 class="text-center">Review</h1>
