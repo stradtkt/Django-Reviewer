@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^login$', views.login),
+    url(r'^register$', views.register),
     url(r'^all-books$', views.all_books),
     url(r'^(?P<id>\d+)/book-reviews$', views.book_review),
     url(r'^process_review$', views.process_review),

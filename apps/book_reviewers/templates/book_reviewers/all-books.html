@@ -3,6 +3,12 @@
 {% block body %} 
 
 <div class="row">
+    <div class="col-lg-12">
+        <h1>{{user.first_name}}</h1>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-lg-9">
         {% for book in books %}
         <div class="card" style="width: 18rem;">

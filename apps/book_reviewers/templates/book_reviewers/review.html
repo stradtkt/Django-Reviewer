@@ -20,6 +20,7 @@
     <div class="col-lg-6">
         <h1 class="text-center">Review</h1>
         <form action="process_review" method="POST">
+            {% csrf_token %}
             <div class="form-group">
                 <input type="text" name="title" class="form-control" placeholder="Title">
             </div>
