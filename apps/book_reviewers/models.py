@@ -65,8 +65,9 @@ class ReviewManager(models.Manager):
 class Review(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField(max_length=1000)
-    user = models.ForeignKey(User)
-    book = models.ForeignKey(Book)
+    rating = models.IntegerField(default=5)
+    user = models.ForeignKey(User, related_name="reviews")
+    book = models.ForeignKey(Book, related_name="reviews")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = ReviewManager()

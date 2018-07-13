@@ -17,7 +17,8 @@ def all_books(request):
         return redirect('/')
     context = {
         "books": Book.objects.all(),
-        "user": User.objects.get(id=request.session['id'])
+        "user": User.objects.get(id=request.session['id']),
+        "review_count": Review.objects.all().count()
         }
     return render(request, 'book_reviewers/all-books.html', context)
 
@@ -61,6 +62,16 @@ def logout(request):
     request.session.clear()
     return redirect('/')
 
+def profile(request, id):
+    user = User.objects.get(id=id)
+    review_count = Review.objects.filter(user=user).count()
+    context = {
+        "user": user,
+        "review_count": review_count
+    }
+    return render(request, 'book_reviewers/profile.html', context)
+
+
 def process_book(request):
     errors = Book.objects.validate_book(request.POST)
     if len(errors):
@@ -90,10 +101,11 @@ def process_review(request, id):
     else:
         title = request.POST['title']
         body = request.POST['body']
+        rating = request.POST['rating']
         user = User.objects.get(id=request.session['id'])
         book = Book.objects.get(id=id)
-        Review.objects.create(title=title, body=body, user=user, book=book)
-        return redirect('/')
+        Review.objects.create(title=title, body=body, rating=rating, user=user, book=book)
+        return redirect('/{}/book-reviews'.format(id))
 
 def delete_review(request, book_id, review_id):
     review = Review.objects.get(id=review_id)

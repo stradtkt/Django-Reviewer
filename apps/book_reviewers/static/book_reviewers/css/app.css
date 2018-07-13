@@ -1,0 +1,33 @@
+.review h3 {
+    color: #f8f8f8;
+}
+.review {
+    padding-bottom: 10px;
+}
+.review p .lead {
+    color: #ccc;
+}
+.review p.name {
+    color: dodgerblue;
+}
+.card-title {
+    color: dodgerblue;
+}
+.btn-primary {
+    background-color: dodgerblue !important;
+}
+.card {
+    border: 1px solid dodgerblue;
+    padding: 0;
+}
+.delete {
+    width: 25px;
+    height: 22px;
+    background-color: red;
+    padding: 10px;
+    border-radius: 50%;
+}
+.fa-star {
+    padding-left: 5px;
+    color: gold;
+}

@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/book-reviews$', views.book_review),
     url(r'^book-reviews/(?P<id>\d+)/process_review$', views.process_review),
     url(r'^book-reviews/(?P<book_id>\d+)/delete/(?P<review_id>\d+)$', views.delete_review),
+    url(r'^(?P<id>\d+)/profile', views.profile),
     url(r'^add-book$', views.add_book),
     url(r'^process_book$', views.process_book)
 ]
