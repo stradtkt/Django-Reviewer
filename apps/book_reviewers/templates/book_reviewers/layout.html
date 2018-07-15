@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="{% static 'book_reviewers/css/app.css' %}">
 <title>{% block title %} Reviewer {% endblock %}</title>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg bg-primary">
+<body class="body-style">
+<nav class="navbar navbar-expand-lg">
     <span class="navbar-brand text-white h1">Book Reviewers</span>
     <ul class="nav">
         {% if 'id' not in request.session %}

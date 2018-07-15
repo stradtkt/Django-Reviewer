@@ -4,13 +4,21 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from .forms import *
 from .models import *
 import bcrypt
+
 
 # Create your views here.
 
 def index(request):
-    return render(request, 'book_reviewers/index.html')
+    reg_form = RegisterForm()
+    log_form = LoginForm()
+    context = {
+        "reg_form": reg_form,
+        "log_form": log_form
+    }
+    return render(request, 'book_reviewers/index.html', context)
 
 def all_books(request):
     if request.session.get('id') == None:
@@ -23,7 +31,9 @@ def all_books(request):
     return render(request, 'book_reviewers/all-books.html', context)
 
 def add_book(request):
-    return render(request, 'book_reviewers/add-book.html')
+    book_form = AddBookForm()
+    context = {"book_form": book_form}
+    return render(request, 'book_reviewers/add-book.html', context)
 
 def login(request):
     email = request.POST['email']
@@ -87,7 +97,12 @@ def process_book(request):
 def book_review(request, id):
     book = Book.objects.get(id=id)
     review = Review.objects.filter(book=book).order_by("-created_at")
-    context = {"book": book, "reviews": review}
+    review_form = AddReviewForm()
+    context = {
+        "book": book, 
+        "reviews": review,
+        "review_form": review_form
+    }
     return render(request, 'book_reviewers/review.html', context)
 
 

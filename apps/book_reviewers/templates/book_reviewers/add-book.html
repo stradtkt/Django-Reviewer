@@ -16,16 +16,13 @@
 
 <div class="row">
     <div class="col-lg-10 offset-1">
-        <h1 class="text-center">Register</h1>
+        <h1>Add Book</h1>
         <form action="process_book" method="POST">
             {% csrf_token %}
-            <div class="form-group">
-                <input type="text" name="title" class="form-control" placeholder="Title">
+            <div class="book-form">
+                {{book_form.as_p}}
             </div>
-            <div class="form-group">
-                <textarea name="content" class="form-control" cols="30" rows="10" placeholder="This is the book content"></textarea>
-            </div>
-            <input type="submit" value="Add Book" class="btn btn-primary btn-lg">
+            <input type="submit" value="Add Book" class="btn btn-primary add-book-btn">
         </form>
     </div>
 </div>
