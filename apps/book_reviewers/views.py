@@ -64,8 +64,6 @@ def register(request):
         password = request.POST['password']
         hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
         User.objects.create(first_name=first_name, last_name=last_name, email=email, password=hashed_pw)
-        user = User.objects.get(email=email)
-        request.session['id'] = user.id
         return redirect('/')
 
 def logout(request):

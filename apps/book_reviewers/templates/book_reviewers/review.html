@@ -32,7 +32,7 @@
         <h1 class="text-center">Review</h1>
         <form action="/book-reviews/{{book.id}}/process_review" method="POST">
             {% csrf_token %}
-            <div class="add_review">
+            <div class="add-review-form">
                 {{review_form.as_p}}
             </div>
             <input type="submit" value="Add Review" class="btn btn-success btn-block">

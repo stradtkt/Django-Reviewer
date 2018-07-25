@@ -59,6 +59,29 @@ nav.navbar {
     left: 5%;
     width: 50%;
 }
+.add-review-form>p>input#id_title {
+    width: 85%;
+}
+.add-review-form>p>label {
+    vertical-align: top;
+}
+.log-reg-form p>input,
+.book-form>p>input,
+.book-form>p>textarea,
+.add-review-form>p>select,
+.add-review-form>p>textarea,
+.add-review-form>p>input {
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    box-shadow: 3px -2px 6px rgba(50,50,50,0.6);
+    -webkit-box-shadow: 3px -2px 6px rgba(50,50,50,0.6);
+    -moz-box-shadow: 3px -2px 6px rgba(50,50,50,0.6);
+    -ms-box-shadow: 3px -2px 6px rgba(50,50,50,0.6);
+    -o-box-shadow: 3px -2px 6px rgba(50,50,50,0.6);
+}
 .book-form > p > textarea#id_content {
     position: relative;
     left: 2%;
